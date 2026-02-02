@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valentine Quiz 💖</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 50px;
+      color: #fff;
+      text-shadow: 2px 2px 8px #ff6f91;
+    }
+
+    p {
+      font-size: 24px;
+      color: #fff;
+      margin: 20px 0;
+      text-shadow: 1px 1px 6px #ff6f91;
+    }
+
+    button {
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background: #ff6f91;
+      color: #fff;
+      box-shadow: 2px 2px 12px rgba(0,0,0,0.2);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #ff3f70;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: float 4s linear infinite;
+    }
+    .heart:before,
+    .heart:after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart:before {
+      top: -10px;
+      left: 0;
+    }
+    .heart:after {
+      left: 10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {transform: translateY(0) rotate(-45deg); opacity: 1;}
+      100% {transform: translateY(-600px) rotate(-45deg); opacity: 0;}
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff6f91;
+      animation: confetti-fall 3s linear infinite;
+    }
+
+    @keyframes confetti-fall {
+      0% {transform: translateY(0);}
+      100% {transform: translateY(600px);}
+    }
+  </style>
+</head>
+<body>
+
+<h1>Valentine Quiz 💖</h1>
+<p id="question">Kya tum mere saath ho?</p>
+
+<button onclick="answerYes()">Yes ❤️</button>
+<button onclick="answerNo()">No 😢</button>
+
+<script>
+let questionIndex = 0;
+const questions = [
+  "Kya tum mere saath ho?",
+  "Mujhe hug dogi?",
+  "Mera haath pakadogi?",
+  "Hamesha mere saath rahogi?"
+];
+
+function randomHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.animationDuration = (2 + Math.random()*3) + 's';
+  document.body.appendChild(heart);
+  setTimeout(()=> heart.remove(), 4000);
+}
+setInterval(randomHeart, 500);
+
+function answerYes() {
+  questionIndex++;
+  if(questionIndex < questions.length) {
+    document.getElementById('question').innerText = questions[questionIndex];
+  } else {
+    showVictory();
+  }
+}
+
+function answerNo() {
+  alert("Plzz babu, no mat click kro 😢\nMain tumhara baccha hu na ❤️");
+}
+
+function showVictory() {
+  document.body.innerHTML = `
+    <h1>🎉 YOU ARE ABHISHEK'S VALENTINE 🎉</h1>
+  `;
+  // Add confetti
+  for(let i=0;i<100;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*window.innerWidth + 'px';
+    c.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+    document.body.appendChild(c);
+  }
+}
+</script>
+
+</body>
+</html>
